@@ -350,6 +350,11 @@
 
               thisInput.triggerHandler('input');
               thisInput.triggerHandler('change');//just to be sure;
+              if (typeof $scope.onDateChange === 'function') {
+                $scope.onDateChange({
+                  'value': thisInput.val()
+                });
+              }
             } else {
 
               return false;
@@ -496,6 +501,11 @@
                 thisInput.val('');
                 thisInput.triggerHandler('input');
                 thisInput.triggerHandler('change');//just to be sure;
+                if (typeof $scope.onDateChange === 'function') {
+                  $scope.onDateChange({
+                    'value': thisInput.val()
+                  });
+                }
               }
             }
           })
@@ -507,6 +517,11 @@
                 thisInput.val('');
                 thisInput.triggerHandler('input');
                 thisInput.triggerHandler('change');//just to be sure;
+                if (typeof $scope.onDateChange === 'function') {
+                  $scope.onDateChange({
+                    'value': thisInput.val()
+                  });
+                }
               }
             }
           });
@@ -1045,7 +1060,8 @@
           'datepickerAppendTo': '@',
           'datepickerToggle': '@',
           'datepickerClass': '@',
-          'datepickerShow': '@'
+          'datepickerShow': '@',
+          'onDateChange': '&?'
         },
         'link': linkingFunction
       };
