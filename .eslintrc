@@ -126,7 +126,7 @@
     "wrap-regex": 2,
 
     "no-extra-boolean-cast": 1,
-    "no-console": 1,
+    "no-console": 0,
     "no-alert": 1,
     "no-empty-character-class": 1,
     "no-ex-assign": 1,

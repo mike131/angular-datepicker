@@ -1,4 +1,4 @@
-/*global angular document navigator*/
+/*global angular document navigator console*/
 (function withAngular(angular, navigator) {
 
   'use strict';
@@ -257,6 +257,9 @@
             $scope.monthNumber = Number($filter('date')(new Date($scope.dateMinLimit), 'MM'));
             $scope.day = Number($filter('date')(new Date($scope.dateMinLimit), 'dd'));
             $scope.year = Number($filter('date')(new Date($scope.dateMinLimit), 'yyyy'));
+            console.log('***** resetToMinDate!! ', {
+              'scope': $scope
+            });
 
             setDaysInMonth($scope.monthNumber, $scope.year);
           }
@@ -266,6 +269,10 @@
             $scope.monthNumber = Number($filter('date')(new Date($scope.dateMaxLimit), 'MM'));
             $scope.day = Number($filter('date')(new Date($scope.dateMaxLimit), 'dd'));
             $scope.year = Number($filter('date')(new Date($scope.dateMaxLimit), 'yyyy'));
+
+            console.log('***** resetToMaxDate!! ', {
+              'scope': $scope
+            });
 
             setDaysInMonth($scope.monthNumber, $scope.year);
           }
@@ -433,6 +440,10 @@
                 $scope.monthNumber = $scope.today.getMonth() + 1;
               }
               $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+
+              console.log('***** TimeoutForYears!! ', {
+                'scope': $scope
+              });
               setDaysInMonth($scope.monthNumber, $scope.year);
             }, 0);
           }
@@ -469,6 +480,10 @@
               $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
               $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
               $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
+
+              console.log('***** dateSet watcher!!!! ', {
+                'scope': $scope
+              });
 
               setDaysInMonth($scope.monthNumber, $scope.year);
 
@@ -553,6 +568,10 @@
           setDaysInMonth($scope.monthNumber, $scope.year);
           //deactivate selected day
           $scope.day = undefined;
+
+          console.log('***** nextMonth !! ', {
+            'scope': $scope
+          });
         };
 
         $scope.willPrevMonthBeSelectable = function willPrevMonthBeSelectable() {
@@ -623,6 +642,9 @@
           }
           //set next month
           $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+          console.log('***** managePrevMonth !! ', {
+            'scope': $scope
+          });
           //reinit days
           setDaysInMonth($scope.monthNumber, $scope.year);
           //deactivate selected day
@@ -767,6 +789,10 @@
                       $scope.month = $filter('date')(date, 'MMMM');//december-November like
                       $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
                       $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
+
+                      console.log('***** applyTyping !! ', {
+                        'scope': $scope
+                      });
 
                       if (date.getFullYear().toString().length === 4) {
                         $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
@@ -916,6 +942,10 @@
         $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
         $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
         $scope.dateWeekStartDay = $scope.validateWeekDay($scope.dateWeekStartDay);
+
+        console.log('***** init? !! ', {
+          'scope': $scope
+        });
 
         if ($scope.dateMaxLimit) {
 
