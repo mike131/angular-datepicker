@@ -1069,6 +1069,10 @@
           angular.element(theCalendar).off('mouseenter mouseleave focusin');
           angular.element($window).off('click focus focusin', onClickOnWindow);
         });
+
+        console.log('****** LINKING COMPLETE!!!! ', {
+          'scope': $scope
+        });
       };
 
       return {
