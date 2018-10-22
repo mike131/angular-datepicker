@@ -2,7 +2,7 @@
   "validateIndentation": 2,
   "disallowAnonymousFunctions": true,
   "disallowCapitalizedComments": true,
-  "disallowDanglingUnderscores": true,
+  "disallowDanglingUnderscores": false,
   "disallowEmptyBlocks": true,
   "disallowFunctionDeclarations": true,
   "disallowImplicitTypeConversion": [

@@ -144,16 +144,6 @@
     , datepickerDirective = function datepickerDirective($window, $compile, $locale, $filter, $interpolate, $timeout) {
 
       var linkingFunction = function linkingFunction($scope, element, attr) {
-        // if ($scope.momentLocaleData) {
-        //   $scope.momentLocaleData = JSON.parse($scope.momentLocaleData);
-        //   console.log('****** PARSED MOMENT DATA!!! ');
-        // }
-
-        console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
-          'locale': $locale,
-          'datetime': $locale.DATETIME_FORMATS,
-          'scope': $scope
-        });
 
         //get child input
         var selector = attr.selector
@@ -178,6 +168,8 @@
           , hours24h = 86400000
           , htmlTemplate = generateHtmlTemplate(prevButton, nextButton, preventMobile)
           , n
+          , hasLocalizedData = false
+          , localizedData = null
           , onClickOnWindow = function onClickOnWindow() {
 
             if (!isMouseOn &&
@@ -964,7 +956,7 @@
 
           $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
         }
-        $scope.months = datetime.MONTH;
+        $scope.months = hasLocalizedData ? localizedData.months : datetime.MONTH;
 
         $scope.daysInString = [];
         for (n = $scope.dateWeekStartDay; n <= $scope.dateWeekStartDay + 6; n += 1) {
@@ -1080,9 +1072,19 @@
           angular.element($window).off('click focus focusin', onClickOnWindow);
         });
 
-        console.log('****** LINKING COMPLETE!!!! ', {
+        console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
+          'locale': $locale,
+          'datetime': $locale.DATETIME_FORMATS,
           'scope': $scope
         });
+
+        if ($scope.momentLocaleData) {
+          hasLocalizedData = true;
+          localizedData = {
+            'months': $scope.momentLocaleData._months,
+            'days': $scope.momentLocaleData._weekdaysShort
+          };
+        }
       };
 
       return {

@@ -95,7 +95,7 @@
     "no-new-object": 2,
     "no-spaced-func": 2,
     "semi-spacing": 2,
-    "no-underscore-dangle": 2,
+    "no-underscore-dangle": 0,
     "no-extra-parens": 2,
     "quotes": [
       2,
