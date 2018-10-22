@@ -168,6 +168,25 @@
           , hours24h = 86400000
           , htmlTemplate = generateHtmlTemplate(prevButton, nextButton, preventMobile)
           , n
+          , getMonth = function getMonth(monthNumber, defaultMonth) {
+              if ($scope.localizedMonths) {
+                return $scope.localizedMonths[monthNumber - 1];
+              }
+
+              return defaultMonth;
+            }
+          , getDaysInString = function getDaysInString(days) {
+            if ($scope.localizedDays) {
+              return days.map(function mappingFunc(dayIdx) {
+                return $scope.localizedDays[dayIdx];
+              });
+            }
+
+            // default days
+            return days.map(function mappingFunc(el) {
+              return $filter('date')(new Date(new Date('06/08/2014').valueOf() + A_DAY_IN_MILLISECONDS * el), 'EEE');
+            });
+          }
           , onClickOnWindow = function onClickOnWindow() {
 
             if (!isMouseOn &&
@@ -253,8 +272,8 @@
           }
           , resetToMinDate = function resetToMinDate() {
 
-            $scope.month = $filter('date')(new Date($scope.dateMinLimit), 'MMMM');
             $scope.monthNumber = Number($filter('date')(new Date($scope.dateMinLimit), 'MM'));
+            $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.dateMinLimit), 'MMMM'));
             $scope.day = Number($filter('date')(new Date($scope.dateMinLimit), 'dd'));
             $scope.year = Number($filter('date')(new Date($scope.dateMinLimit), 'yyyy'));
 
@@ -262,8 +281,8 @@
           }
           , resetToMaxDate = function resetToMaxDate() {
 
-            $scope.month = $filter('date')(new Date($scope.dateMaxLimit), 'MMMM');
             $scope.monthNumber = Number($filter('date')(new Date($scope.dateMaxLimit), 'MM'));
+            $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.dateMaxLimit), 'MMMM'));
             $scope.day = Number($filter('date')(new Date($scope.dateMaxLimit), 'dd'));
             $scope.year = Number($filter('date')(new Date($scope.dateMaxLimit), 'yyyy'));
 
@@ -432,7 +451,7 @@
                 $scope.year = $scope.today.getFullYear();
                 $scope.monthNumber = $scope.today.getMonth() + 1;
               }
-              $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+              $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM'));
               setDaysInMonth($scope.monthNumber, $scope.year);
             }, 0);
           }
@@ -465,8 +484,8 @@
 
               date = new Date(newValue);
 
-              $scope.month = $filter('date')(date, 'MMMM');//december-November like
               $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
+              $scope.month = getMonth($scope.monthNumber, $filter('date')(date, 'MMMM')); //december-November like
               $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
               $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
 
@@ -548,7 +567,7 @@
           }
 
           //set next month
-          $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+          $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM'));
           //reinit days
           setDaysInMonth($scope.monthNumber, $scope.year);
           //deactivate selected day
@@ -622,7 +641,7 @@
             }
           }
           //set next month
-          $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+          $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM'));
           //reinit days
           setDaysInMonth($scope.monthNumber, $scope.year);
           //deactivate selected day
@@ -764,8 +783,8 @@
 
                     $scope.$apply(function applyTyping() {
 
-                      $scope.month = $filter('date')(date, 'MMMM');//december-November like
                       $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
+                      $scope.month = getMonth($scope.monthNumber, $filter('date')(date, 'MMMM')); //december-November like
                       $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
 
                       if (date.getFullYear().toString().length === 4) {
@@ -912,8 +931,8 @@
         $scope.dateYearTitle = $scope.dateYearTitle || 'Select year';
         $scope.buttonNextTitle = $scope.buttonNextTitle || 'Next';
         $scope.buttonPrevTitle = $scope.buttonPrevTitle || 'Prev';
-        $scope.month = $filter('date')(date, 'MMMM');//december-November like
         $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
+        $scope.month = getMonth($scope.monthNumber, $filter('date')(date, 'MMMM'));//december-November like
         $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
         $scope.dateWeekStartDay = $scope.validateWeekDay($scope.dateWeekStartDay);
 
@@ -924,17 +943,14 @@
 
           $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
         }
-        $scope.months = datetime.MONTH;
+        $scope.months = $scope.localizedMonths ? $scope.localizedMonths : datetime.MONTH;
 
         $scope.daysInString = [];
         for (n = $scope.dateWeekStartDay; n <= $scope.dateWeekStartDay + 6; n += 1) {
 
           $scope.daysInString.push(n % 7);
         }
-        $scope.daysInString = $scope.daysInString.map(function mappingFunc(el) {
-
-          return $filter('date')(new Date(new Date('06/08/2014').valueOf() + A_DAY_IN_MILLISECONDS * el), 'EEE');
-        });
+        $scope.daysInString = getDaysInString($scope.daysInString);
 
         //create the calendar holder and append where needed
         if ($scope.datepickerAppendTo &&
@@ -1061,7 +1077,9 @@
           'datepickerToggle': '@',
           'datepickerClass': '@',
           'datepickerShow': '@',
-          'onDateChange': '&?'
+          'onDateChange': '&?',
+          'localizedMonths': '=?',
+          'localizedDays': '=?'
         },
         'link': linkingFunction
       };

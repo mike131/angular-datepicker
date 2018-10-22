@@ -93,11 +93,13 @@ date-typer="" | String(Boolean) | false | Set the datepicker to update calendar 
 date-week-start-day="" | String(Number) | 0 | Set the first day of the week. Must be an integer between 0 (Sunday) and 6 (Saturday). (e.g. 1 for Monday)
 datepicker-class="" | String('class1 class2 class3') | false | Set custom class/es for the datepicker calendar
 datepicker-append-to="" | String('#id','.classname', 'body') | false | Append the datepicker to #id or  .class element or to body
-datepicker-toggle="" | String(Boolean) | true | Set the datepicker to toggle its visibility on focus and blur 
+datepicker-toggle="" | String(Boolean) | true | Set the datepicker to toggle its visibility on focus and blur
 | | | **tip:** Best is to use `pointer-events: none;` on your input if you don't want the user to toggle the calendar visibility.
 datepicker-show="" | String | false | Trigger the datepicker visibility, if true datepicker is shown if false it is hidden
  |  | | **tip:** _Do not mix it with datepicker-toggle for a more stable behavior_
 datepicker-mobile="" | String | true | Set to `false` to force override of mobile styles. Especially useful for using desktop-style pagination control in mobile apps.
+localized-months="" | Array<String> | `$locale` months | `["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]`
+localized-days="" | Array<String> | `$locale` days | `["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."]`
 
 ## Options
 Angular datepicker allows you to use some options via `attribute` data
