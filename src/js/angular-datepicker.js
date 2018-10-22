@@ -173,6 +173,12 @@
           , getMonth = function getMonth(monthNumber, defaultValue) {
             var defaultMonth = defaultValue;
 
+            console.log('******* GETTING MONTH!!!! ', {
+              'defaultValue': defaultValue,
+              'monthNumber': monthNumber,
+              'defaultMonth': defaultMonth
+            });
+
             if (hasLocalizedData) {
               defaultMonth = localizedData.months[monthNumber];
               console.log('******* USING LOCALIZED MONTH!!!! ', defaultMonth);
