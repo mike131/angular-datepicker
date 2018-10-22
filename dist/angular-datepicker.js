@@ -170,6 +170,18 @@
           , n
           , hasLocalizedData = false
           , localizedData = null
+          , getMonth = function getMonth(monthNumber, defaultValue) {
+            var defaultMonth = defaultValue;
+
+            if (hasLocalizedData) {
+              defaultMonth = localizedData.months[monthNumber];
+              console.log('******* USING LOCALIZED MONTH!!!! ', defaultMonth);
+            } else {
+              console.log('******* USING DEFAULT MONTH!!! ', defaultMonth);
+            }
+
+            return defaultMonth;
+          }
           , onClickOnWindow = function onClickOnWindow() {
 
             if (!isMouseOn &&
@@ -255,8 +267,9 @@
           }
           , resetToMinDate = function resetToMinDate() {
 
-            $scope.month = $filter('date')(new Date($scope.dateMinLimit), 'MMMM');
+            // $scope.month = $filter('date')(new Date($scope.dateMinLimit), 'MMMM');
             $scope.monthNumber = Number($filter('date')(new Date($scope.dateMinLimit), 'MM'));
+            $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.dateMinLimit), 'MMMM'));
             $scope.day = Number($filter('date')(new Date($scope.dateMinLimit), 'dd'));
             $scope.year = Number($filter('date')(new Date($scope.dateMinLimit), 'yyyy'));
             console.log('***** resetToMinDate!! ', {
@@ -267,8 +280,9 @@
           }
           , resetToMaxDate = function resetToMaxDate() {
 
-            $scope.month = $filter('date')(new Date($scope.dateMaxLimit), 'MMMM');
+            // $scope.month = $filter('date')(new Date($scope.dateMaxLimit), 'MMMM');
             $scope.monthNumber = Number($filter('date')(new Date($scope.dateMaxLimit), 'MM'));
+            $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.dateMaxLimit), 'MMMM'));
             $scope.day = Number($filter('date')(new Date($scope.dateMaxLimit), 'dd'));
             $scope.year = Number($filter('date')(new Date($scope.dateMaxLimit), 'yyyy'));
 
@@ -441,7 +455,8 @@
                 $scope.year = $scope.today.getFullYear();
                 $scope.monthNumber = $scope.today.getMonth() + 1;
               }
-              $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+              // $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+              $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM'));
 
               console.log('***** TimeoutForYears!! ', {
                 'scope': $scope
@@ -478,10 +493,12 @@
 
               date = new Date(newValue);
 
-              $scope.month = $filter('date')(date, 'MMMM');//december-November like
+              // $scope.month = $filter('date')(date, 'MMMM');//december-November like
               $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
               $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
               $scope.year = Number($filter('date')(date, 'yyyy'));//2014 like
+
+              $scope.month = getMonth($scope.monthNumber, $filter('date')(date, 'MMMM'));
 
               console.log('***** dateSet watcher!!!! ', {
                 'scope': $scope
@@ -565,7 +582,9 @@
           }
 
           //set next month
-          $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+          // $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+
+          $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM'));
           //reinit days
           setDaysInMonth($scope.monthNumber, $scope.year);
           //deactivate selected day
@@ -643,7 +662,8 @@
             }
           }
           //set next month
-          $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+          // $scope.month = $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM');
+          $scope.month = getMonth($scope.monthNumber, $filter('date')(new Date($scope.year, $scope.monthNumber - 1), 'MMMM'));
           console.log('***** managePrevMonth !! ', {
             'scope': $scope
           });
@@ -788,9 +808,10 @@
 
                     $scope.$apply(function applyTyping() {
 
-                      $scope.month = $filter('date')(date, 'MMMM');//december-November like
+                      // $scope.month = $filter('date')(date, 'MMMM');//december-November like
                       $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
                       $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
+                      $scope.month = getMonth($scope.monthNumber, $filter('date')(date, 'MMMM'));
 
                       console.log('***** applyTyping !! ', {
                         'scope': $scope
@@ -940,8 +961,9 @@
         $scope.dateYearTitle = $scope.dateYearTitle || 'Select year';
         $scope.buttonNextTitle = $scope.buttonNextTitle || 'Next';
         $scope.buttonPrevTitle = $scope.buttonPrevTitle || 'Prev';
-        $scope.month = $filter('date')(date, 'MMMM');//december-November like
+        // $scope.month = $filter('date')(date, 'MMMM');//december-November like
         $scope.monthNumber = Number($filter('date')(date, 'MM')); // 01-12 like
+        $scope.month = getMonth($scope.monthNumber, $filter('date')(date, 'MMMM'));
         $scope.day = Number($filter('date')(date, 'dd')); //01-31 like
         $scope.dateWeekStartDay = $scope.validateWeekDay($scope.dateWeekStartDay);
 
