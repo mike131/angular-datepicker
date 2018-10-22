@@ -188,6 +188,13 @@
 
             return defaultMonth;
           }
+          , getDaysInString = function getDaysInString(days) {
+            console.log('****** GETTING DAYS IN STRING WITH ', days);
+
+            return days.map(function mappingFunc(el) {
+              return $filter('date')(new Date(new Date('06/08/2014').valueOf() + A_DAY_IN_MILLISECONDS * el), 'EEE');
+            });
+          }
           , onClickOnWindow = function onClickOnWindow() {
 
             if (!isMouseOn &&
@@ -1005,10 +1012,7 @@
 
           $scope.daysInString.push(n % 7);
         }
-        $scope.daysInString = $scope.daysInString.map(function mappingFunc(el) {
-
-          return $filter('date')(new Date(new Date('06/08/2014').valueOf() + A_DAY_IN_MILLISECONDS * el), 'EEE');
-        });
+        $scope.daysInString = getDaysInString($scope.daysInString);
 
         //create the calendar holder and append where needed
         if ($scope.datepickerAppendTo &&
