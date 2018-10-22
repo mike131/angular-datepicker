@@ -144,6 +144,10 @@
     , datepickerDirective = function datepickerDirective($window, $compile, $locale, $filter, $interpolate, $timeout) {
 
       var linkingFunction = function linkingFunction($scope, element, attr) {
+        if ($scope.momentLocaleData) {
+          $scope.momentLocaleData = JSON.parse($scope.momentLocaleData);
+          console.log('****** PARSED MOMENT DATA!!! ');
+        }
 
         console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
           'locale': $locale,
