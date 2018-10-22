@@ -1102,8 +1102,8 @@
           'datepickerClass': '@',
           'datepickerShow': '@',
           'onDateChange': '&?',
-          'momentLocaleString': '?@',
-          'momentLocaleData': '?@'
+          'momentLocaleString': '@?',
+          'momentLocaleData': '@?'
         },
         'link': linkingFunction
       };
