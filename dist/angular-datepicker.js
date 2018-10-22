@@ -147,7 +147,8 @@
 
         console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
           'locale': $locale,
-          'datetime': $locale.DATETIME_FORMATS
+          'datetime': $locale.DATETIME_FORMATS,
+          'scope': $scope
         });
 
         //get child input
@@ -1100,7 +1101,9 @@
           'datepickerToggle': '@',
           'datepickerClass': '@',
           'datepickerShow': '@',
-          'onDateChange': '&?'
+          'onDateChange': '&?',
+          'momentLocaleString': '?@',
+          'momentLocaleData': '?@'
         },
         'link': linkingFunction
       };
