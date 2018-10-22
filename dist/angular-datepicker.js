@@ -145,6 +145,11 @@
 
       var linkingFunction = function linkingFunction($scope, element, attr) {
 
+        console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
+          'locale': $locale,
+          'datetime': $locale.DATETIME_FORMATS
+        });
+
         //get child input
         var selector = attr.selector
           , thisInput = angular.element(selector ? element[0].querySelector('.' + selector) : element[0].children[0])
