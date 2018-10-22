@@ -949,6 +949,20 @@
           'scope': $scope
         });
 
+        console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
+          'locale': $locale,
+          'datetime': $locale.DATETIME_FORMATS,
+          'scope': $scope
+        });
+
+        if ($scope.momentLocaleData) {
+          hasLocalizedData = true;
+          localizedData = {
+            'months': $scope.momentLocaleData._months,
+            'days': $scope.momentLocaleData._weekdaysShort
+          };
+        }
+
         if ($scope.dateMaxLimit) {
 
           $scope.year = Number($filter('date')(new Date($scope.dateMaxLimit), 'yyyy'));//2014 like
@@ -1071,20 +1085,6 @@
           angular.element(theCalendar).off('mouseenter mouseleave focusin');
           angular.element($window).off('click focus focusin', onClickOnWindow);
         });
-
-        console.log('******* LINKING THE DATEPICKER WITH A LOCALE!!! ', {
-          'locale': $locale,
-          'datetime': $locale.DATETIME_FORMATS,
-          'scope': $scope
-        });
-
-        if ($scope.momentLocaleData) {
-          hasLocalizedData = true;
-          localizedData = {
-            'months': $scope.momentLocaleData._months,
-            'days': $scope.momentLocaleData._weekdaysShort
-          };
-        }
       };
 
       return {
