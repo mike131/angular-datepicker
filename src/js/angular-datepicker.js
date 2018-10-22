@@ -180,7 +180,7 @@
             });
 
             if (hasLocalizedData) {
-              defaultMonth = localizedData.months[monthNumber];
+              defaultMonth = localizedData.months[monthNumber - 1];
               console.log('******* USING LOCALIZED MONTH!!!! ', defaultMonth);
             } else {
               console.log('******* USING DEFAULT MONTH!!! ', defaultMonth);
