@@ -190,6 +190,11 @@
           }
           , getDaysInString = function getDaysInString(days) {
             console.log('****** GETTING DAYS IN STRING WITH ', days);
+            if (hasLocalizedData) {
+              return days.map(function mappingFunc(dayIdx) {
+                return localizedData.days[dayIdx];
+              });
+            }
 
             return days.map(function mappingFunc(el) {
               return $filter('date')(new Date(new Date('06/08/2014').valueOf() + A_DAY_IN_MILLISECONDS * el), 'EEE');
